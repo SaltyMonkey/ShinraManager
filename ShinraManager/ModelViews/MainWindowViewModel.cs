@@ -95,7 +95,7 @@ namespace ShinraManager.ModelViews
         private void Init()
         {
             wtch = new WMIProcessWatcher(TeraProcessName);
-            if ((!string.IsNullOrEmpty(ShinraPath)) && (RunWithTera))
+            if ((!string.IsNullOrWhiteSpace(ShinraPath)) && (RunWithTera))
             {
                 wtch.AddWatchCreateProcessEvent(shinraProcessStartBody);
             }
@@ -123,6 +123,7 @@ namespace ShinraManager.ModelViews
                 wtch.AddWatchCreateProcessEvent(shinraProcessStartBody);
             }
             RunWithTera = !RunWithTera;
+            mngr.SetValue(ShinraManagerSetting.AutorunWithTera, RunWithTera.ToString());
         }
 
         private void CleanUpTaskSheduler()
