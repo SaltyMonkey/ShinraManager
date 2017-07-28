@@ -21,6 +21,7 @@ namespace ShinraManager.ModelViews
             ShinraManagerTaskName = mngr.GetSettings(ShinraManagerSetting.ShinraManagerTaskName);
             ShinraManagereTaskDescription = mngr.GetSettings(ShinraManagerSetting.ShinraManagerTaskName);
             ShinraDefaultName = mngr.GetSettings(ShinraManagerSetting.ShinraMeterDefaultName);
+            ShinraProcessName = mngr.GetSettings(ShinraManagerSetting.ShinraProcessName);
             ChooseShinraMeterExePath = new DelegateCommand(chooseShinraPathBody);
             MainButtonCommand = new DelegateCommand(mainButtonCommBody);
             ClosingComm = new DelegateCommand(closeComm);
@@ -63,6 +64,7 @@ namespace ShinraManager.ModelViews
         public string ShinraManagerTaskName { get; set; }
         public string ShinraDefaultName { get; set; }
         public string TeraProcessName { get; set; } = "Tera.exe";
+        public string ShinraProcessName { get; set; }
         private bool _runWithTera;
 
         public bool RunWithTera
@@ -103,7 +105,7 @@ namespace ShinraManager.ModelViews
 
         private void shinraProcessStartBody(object sender, EventArrivedEventArgs e)
         {
-            if (!ProcessCommandsWrapper.CheckProcessInMemory(ShinraDefaultName))
+            if (!ProcessCommandsWrapper.CheckProcessInMemory(ShinraProcessName))
             {
                 ProcessCommandsWrapper.StartProcess(ShinraPath);
             }

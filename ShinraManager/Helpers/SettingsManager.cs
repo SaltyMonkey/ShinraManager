@@ -10,7 +10,8 @@ namespace ShinraManager.Helpers.Settings.Enums
         AutorunWithTera,
         ShinraManagerTaskName,
         ShinraManagerTaskDescription,
-        ShinraMeterDefaultName
+        ShinraMeterDefaultName,
+        ShinraProcessName
     }
 }
 
