@@ -7,11 +7,14 @@ namespace ShinraManager.Helpers.Settings.Enums
     public enum ShinraManagerSetting
     {
         ShinraMeterPath,
-        AutorunWithTera,
-        ShinraManagerTaskName,
-        ShinraManagerTaskDescription,
+        ShinraMeterAutorunWithTera,
         ShinraMeterDefaultName,
-        ShinraProcessName
+        ShinraMeterProcessName,
+        TccPath,
+        TccAutorunWithTera,
+        TccDefaultName,
+        TccProcessName,
+        ShinraManagerTaskName
     }
 }
 
