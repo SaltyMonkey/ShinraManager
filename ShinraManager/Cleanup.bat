@@ -10,4 +10,5 @@ RMDIR /S /Q %~dp0zh-CN
 del "*.xml"
 del "*.pdb"
 del "*.dll"
+del "NLog.config"
 (goto) 2>nul & del "%~f0"

@@ -15,7 +15,7 @@ namespace ShinraManager.ModelViews
 {
     internal class MainWindowViewModel : INotifyPropertyChanged, IDisposable, IClosingHack
     {
-        private bool DebugLog = false;
+        //private bool DebugLog = false;
 
         private readonly SettingsManager mngr = new SettingsManager();
         private static readonly Logger log = LogManager.GetCurrentClassLogger();
