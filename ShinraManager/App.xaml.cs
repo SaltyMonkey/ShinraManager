@@ -3,6 +3,7 @@ using ShinraManager.View;
 using System;
 using System.Threading;
 using System.Windows;
+using NLog;
 
 namespace ShinraManager
 {
@@ -14,6 +15,7 @@ namespace ShinraManager
         private static Mutex _mutex = null;
         private string _appNameForActivate = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
         private bool _newInst;
+        private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -49,12 +51,19 @@ namespace ShinraManager
 
         private void ActivateFirstInst()
         {
-            var ptr = UnsafeAPI.FindWindow(null, System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
-            if (ptr != IntPtr.Zero)
+            try
             {
-                UnsafeAPI.SetForegroundWindow(ptr);
-                if (UnsafeAPI.IsIconic(ptr))
-                    UnsafeAPI.OpenIcon(ptr);
+                var ptr = UnsafeAPI.FindWindow(null, System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
+                if (ptr != IntPtr.Zero)
+                {
+                    UnsafeAPI.SetForegroundWindow(ptr);
+                    if (UnsafeAPI.IsIconic(ptr))
+                        UnsafeAPI.OpenIcon(ptr);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Fatal(ex, "ActivateFirstInst");
             }
         }
     }
