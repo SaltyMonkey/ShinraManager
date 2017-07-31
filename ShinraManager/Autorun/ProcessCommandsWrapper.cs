@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO;
 
 namespace ShinraManager.Autorun
 {
@@ -11,7 +12,9 @@ namespace ShinraManager.Autorun
 
         public static void StartProcess(string fullPath)
         {
-            Process.Start(fullPath);
+            ProcessStartInfo prc = new ProcessStartInfo(fullPath);
+            prc.WorkingDirectory = Path.GetDirectoryName(fullPath);
+            Process.Start(prc);
         }
     }
 }
