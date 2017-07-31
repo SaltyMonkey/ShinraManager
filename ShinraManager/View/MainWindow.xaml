@@ -8,7 +8,7 @@
         DataContext="{StaticResource MainWindowViewModel}"
         Visibility="{Binding WindowVisibility, Mode=TwoWay}"
         mc:Ignorable="d"
-        Title="ShinraManager" Height="138.7" Width="282.6" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/ShinraManager;component/icon-notify.ico" Topmost="True" Closing="Window_Closing" ShowInTaskbar="False">
+        Title="ShinraManager" Height="158.866" Width="290.6" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/ShinraManager;component/icon-notify.ico" Topmost="True" Closing="Window_Closing" ShowInTaskbar="False">
     <Window.Resources>
         <converters:MainButtonTextConverter x:Key="MainButtonTextConverter" />
         <converters:EnableButtonIfValidPathConverter x:Key="EnableButtonIfValidPathConverter" />
@@ -20,13 +20,29 @@
                 <ContextMenu>
                     <MenuItem Header="Open main window" Command="{Binding ShowWindowComm}" />
                     <Separator></Separator>
+                    <MenuItem Header="GitHub" Command="{Binding GitHubComm}" />
+                    <Separator></Separator>
                     <MenuItem Header="Exit" Command="{Binding ClosingComm}" />
                 </ContextMenu>
             </tb:TaskbarIcon.ContextMenu>
         </tb:TaskbarIcon>
-        <TextBox Text="{Binding ShinraPath}" HorizontalAlignment="Left" Height="23" Margin="10,26,0,0" VerticalAlignment="Top" Width="210" IsReadOnly="True" IsReadOnlyCaretVisible="True" MaxLines="1" />
-        <Button Content="..." HorizontalAlignment="Left" Margin="225,26,0,0" VerticalAlignment="Top" Width="33" Height="23" Command="{Binding ChooseShinraMeterExePath}" />
-        <Button Content="{Binding RunWithTera, Converter={StaticResource MainButtonTextConverter}}" IsEnabled="{Binding ShinraPath, Converter={StaticResource EnableButtonIfValidPathConverter}}" Command="{Binding MainButtonCommand}"  HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Width="248" Height="29" />
-        <Label Content="ShinraMeter path:" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <TabControl HorizontalAlignment="Left" Height="130" VerticalAlignment="Top" Width="285">
+            <TabItem Header="ShinraMeter">
+                <Grid Background="White">
+                    <TextBox Text="{Binding ShinraPath}" HorizontalAlignment="Left" Height="23" Margin="10,26,0,0" VerticalAlignment="Top" Width="210" IsReadOnly="True" IsReadOnlyCaretVisible="True" MaxLines="1" />
+                    <Button Content="..." HorizontalAlignment="Left" Margin="225,26,0,0" VerticalAlignment="Top" Width="33" Height="23" Command="{Binding ChooseShinraMeterExePath}" />
+                    <Button Content="{Binding ShinraMeterRunWithTera, Converter={StaticResource MainButtonTextConverter}}" IsEnabled="{Binding ShinraPath, Converter={StaticResource EnableButtonIfValidPathConverter}}" Command="{Binding ShinraButtonCommand}"  HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Width="248" Height="29" />
+                    <Label Content="ShinraMeter path:" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="TCC">
+                <Grid Background="White">
+                    <TextBox Text="{Binding TccPath}" HorizontalAlignment="Left" Height="23" Margin="10,26,0,0" VerticalAlignment="Top" Width="210" IsReadOnly="True" IsReadOnlyCaretVisible="True" MaxLines="1" />
+                    <Button Content="..." HorizontalAlignment="Left" Margin="225,26,0,0" VerticalAlignment="Top" Width="33" Height="23" Command="{Binding ChooseTccExePath}" />
+                    <Button Content="{Binding TccRunWithTera, Converter={StaticResource MainButtonTextConverter}}" IsEnabled="{Binding TccPath, Converter={StaticResource EnableButtonIfValidPathConverter}}" Command="{Binding TccButtonCommand}"  HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Width="248" Height="29" />
+                    <Label Content="TCC path:" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
