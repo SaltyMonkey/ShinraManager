@@ -63,6 +63,9 @@
     <Reference Include="Microsoft.Win32.TaskScheduler, Version=2.5.28.0, Culture=neutral, PublicKeyToken=0d013ddd5178a2ae, processorArchitecture=MSIL">
       <HintPath>..\packages\TaskScheduler.2.5.28\lib\net452\Microsoft.Win32.TaskScheduler.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.11\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -101,6 +104,8 @@
     <Compile Include="Helpers\SettingsManager.cs" />
     <Compile Include="Helpers\UnsafeAPI.cs" />
     <Compile Include="ModelViews\MainWindowViewModel.cs" />
+    <Compile Include="Model\ShinraMeterInfo.cs" />
+    <Compile Include="Model\TccInfo.cs" />
     <Compile Include="View\UIConverters\TrayIconFromWindowVisibilityConverter.cs" />
     <Compile Include="View\UIConverters\MainButtonTextConverter.cs" />
     <Compile Include="View\UIConverters\EnableButtonIfValidPathConverter.cs" />
@@ -131,6 +136,12 @@
     <None Include="Cleanup.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -144,9 +155,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="icon-notify.ico" />
   </ItemGroup>
