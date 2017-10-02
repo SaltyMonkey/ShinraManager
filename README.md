@@ -2,6 +2,8 @@
 ShinraMeter and TCC launcher for Tera.
 Automatic start for DPS meter and TCC programs without your attention :)
 
+![ShinraMeter Tab](https://github.com/SaltyMonkey/ShinraManager/blob/new/UiExample/1.png)
+![ShinraMeter Tab](https://github.com/SaltyMonkey/ShinraManager/blob/new/UiExample/2.png)
 ## Usage:
 1. Unzip ALL files
 2. Open ShinraManager.exe  
