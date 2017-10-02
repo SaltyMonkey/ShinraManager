@@ -59,8 +59,10 @@ namespace ShinraManager
 
         private void ShinraChoosePathB_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = $"ShinraMeter binary|{ManagerSettings.Instance.ShinraMeterDefaultName}";
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = $"ShinraMeter binary|{ManagerSettings.Instance.ShinraMeterDefaultName}"
+            };
             if (openFileDialog.ShowDialog() == true)
             {
                 ManagerSettings.Instance.ShinraMeterPath = openFileDialog.FileName;
@@ -70,8 +72,10 @@ namespace ShinraManager
 
         private void TccChoosePathB_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = $"Tcc binary|{ManagerSettings.Instance.TccDefaultName}";
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = $"Tcc binary|{ManagerSettings.Instance.TccDefaultName}"
+            };
             if (openFileDialog.ShowDialog() == true)
             {
                 ManagerSettings.Instance.TccPath = openFileDialog.FileName;

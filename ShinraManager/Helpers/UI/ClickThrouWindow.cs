@@ -1,7 +1,7 @@
-﻿using ShinraManager.Helpers.UI;
+﻿using ShinraManager.Helpers;
+using ShinraManager.Helpers.UI;
 using System;
 using System.ComponentModel;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -174,7 +174,7 @@ namespace ShinraManager.UI
 
             //Set the window style to noactivate.
             var helper = new WindowInteropHelper(this);
-            SetWindowLong(helper.Handle, GWL_EXSTYLE, GetWindowLong(helper.Handle, GWL_EXSTYLE) | WS_EX_NOACTIVATE);
+            UnsafeAPI.SetWindowLong(helper.Handle, GWL_EXSTYLE, UnsafeAPI.GetWindowLong(helper.Handle, GWL_EXSTYLE) | WS_EX_NOACTIVATE);
         }
 
         private static DoubleAnimation OpacityAnimation(double to)
@@ -182,15 +182,7 @@ namespace ShinraManager.UI
             return new DoubleAnimation(to, TimeSpan.FromMilliseconds(300)) { EasingFunction = new QuadraticEase() };
         }
 
-        [DllImport("user32.dll")]
-        public static extern IntPtr SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
-        [DllImport("user32.dll")]
-        public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
-
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool SetForegroundWindow(IntPtr hWnd);
     }
    
 }

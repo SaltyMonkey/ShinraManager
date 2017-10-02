@@ -34,12 +34,21 @@ namespace ShinraManager.Helpers
         [DllImport("user32", CharSet = CharSet.Unicode)]
         public static extern IntPtr FindWindow(string cls, string win);
 
+        [DllImport("user32.dll")]
+        public static extern IntPtr SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        [DllImport("user32.dll")]
+        public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+
+
         /// <summary>
         /// Activate window
         /// </summary>
         /// <param name="hWnd">window pointer to active</param>
         /// <returns></returns>
-        [DllImport("user32")]
-        public static extern IntPtr SetForegroundWindow(IntPtr hWnd);
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
     }
 }
