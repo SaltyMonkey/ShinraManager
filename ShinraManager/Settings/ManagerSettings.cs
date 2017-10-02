@@ -70,9 +70,9 @@ namespace ShinraManager.Settings
             get { return _tccDefaultName; }
             set { _tccDefaultName = value; RaisePropertyChanged(); SetValue(nameof(TccDefaultName), _tccDefaultName); }
         }
-        private string _tccProcessName;
+
         public string TccProcessName { get; set; }
-        private string _shinraManagerTaskName;
+
         public string ShinraManagerTaskName { get; set; }
 
         public ManagerSettings()
