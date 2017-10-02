@@ -21,4 +21,4 @@ Automatic start for DPS meter and TCC programs without your attention :)
 * A: "Disable launch with Tera" buttons
 
 * Q: How i can change binaries locations?
-* A: Open ShinraManager, press "Disable launch with Tera", change path to binary with "..." button, press "Enable launch with Tera"
+* A: Open ShinraManager window, change path to binary with "C" button
