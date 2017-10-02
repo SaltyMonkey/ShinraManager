@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShinraManager", "ShinraManager\ShinraManager.csproj", "{450E7C6F-726D-4E7A-BCC2-DA8767F52EBC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShinraManager", "ShinraManager\ShinraManager.csproj", "{8F1A07ED-F393-407B-96AF-8CCB2E81382F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,12 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{450E7C6F-726D-4E7A-BCC2-DA8767F52EBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{450E7C6F-726D-4E7A-BCC2-DA8767F52EBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{450E7C6F-726D-4E7A-BCC2-DA8767F52EBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{450E7C6F-726D-4E7A-BCC2-DA8767F52EBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F1A07ED-F393-407B-96AF-8CCB2E81382F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F1A07ED-F393-407B-96AF-8CCB2E81382F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F1A07ED-F393-407B-96AF-8CCB2E81382F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F1A07ED-F393-407B-96AF-8CCB2E81382F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FAF343C5-6589-40C2-8177-91DE8B5FBF03}
 	EndGlobalSection
 EndGlobal
