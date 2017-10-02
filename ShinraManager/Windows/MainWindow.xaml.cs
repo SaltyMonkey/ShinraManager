@@ -31,12 +31,30 @@ namespace ShinraManager
         private WMIWrapper wtch;
         private void Logo_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            ProcessWorkWrapper.JustStartProcess("https://github.com/SaltyMonkey/ShinraManager");
+            GitHubComm();
         }
 
+        private void GitHubComm(object sender, RoutedEventArgs e)
+        {
+            ProcessWorkWrapper.JustStartProcess("https://github.com/SaltyMonkey/ShinraManager");
+        }
+        private void GitHubComm()
+        {
+            ProcessWorkWrapper.JustStartProcess("https://github.com/SaltyMonkey/ShinraManager");
+        }
+        private void ClosingComm(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+        private void ShowWindowComm(object sender, RoutedEventArgs e)
+        {
+            TaskbarIcon.Visibility = Visibility.Hidden;
+            Show();
+        }
         private void HideWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Hide();
+            TaskbarIcon.Visibility = Visibility.Visible;
         }
 
         private void ShinraChoosePathB_Click(object sender, RoutedEventArgs e)

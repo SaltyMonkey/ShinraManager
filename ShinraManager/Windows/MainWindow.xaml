@@ -26,7 +26,17 @@
             <RowDefinition Height="26"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <tb:TaskbarIcon Visibility="Visible" IconSource="{DynamicResource icon}" x:Name="TaskbarIcon"  ToolTipText="ShinraManager here :>"></tb:TaskbarIcon>
+        <tb:TaskbarIcon x:Name="TaskbarIcon" Visibility="Hidden" IconSource="{DynamicResource icon}"  ToolTipText="ShinraManager here :>">
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Open window" Click="ShowWindowComm" />
+                    <Separator></Separator>
+                    <MenuItem Header="GitHub" Click="GitHubComm" />
+                    <Separator></Separator>
+                    <MenuItem Header="Exit" Click="ClosingComm" />
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
         <Border Style="{StaticResource MainBorder}" x:Name="BackgroundColor" Grid.RowSpan="2" Opacity="0.6" Height="190" VerticalAlignment="Top"/>
         <Grid Grid.Row="0" Height="26" Margin="0,-0.4,0,0" >
             <Label Content="ShinraManager" HorizontalAlignment="Left" Foreground="White" Padding="10,2,2,2" Margin="36,0,0,0" Width="96" Height="26" VerticalAlignment="Bottom" VerticalContentAlignment="Center" />
