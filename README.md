@@ -5,10 +5,10 @@ Automatic start for DPS meter and TCC programs without your attention :)
 ## Usage:
 1. Unzip ALL files
 2. Open ShinraManager.exe  
-3. Press "..." button and choose ShinraMeter.exe binary file
+3. Press "C" button and choose ShinraMeter.exe binary file
 4. Press "Enable launch with Tera" button
 5. Change Tab to "TCC"
-6. Press "..." button and choose TCC.exe binary file
+6. Press "C" button and choose TCC.exe binary file
 7. Press "Enable launch with Tera" button
 
 ## FAQ:
