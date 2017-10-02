@@ -66,7 +66,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -80,6 +79,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Autorun\WindowsTaskShedulerWrapper.cs" />
+    <Compile Include="Helpers\UI\WindowsServices.cs" />
     <Compile Include="Windows\UiConverters\EnableToColorConverter.cs" />
     <Compile Include="Windows\UiConverters\EnableButtonIfValidPathConverter.cs" />
     <Compile Include="Windows\UiConverters\MainButtonTextConverter.cs" />
