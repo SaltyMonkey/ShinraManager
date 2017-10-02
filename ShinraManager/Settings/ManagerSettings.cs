@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Configuration;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShinraManager.Settings
 {
@@ -40,17 +35,14 @@ namespace ShinraManager.Settings
             get { return _shinraMeterAutorunWithTera; }
             set { _shinraMeterAutorunWithTera = value; RaisePropertyChanged(); SetValue(nameof(ShinraMeterAutorunWithTera), _shinraMeterAutorunWithTera); }
         }
-        private string _shinraMeterDefaultName;
+      
         public string ShinraMeterDefaultName
         {
-            get { return _shinraMeterDefaultName; }
-            set { _shinraMeterDefaultName = value; RaisePropertyChanged(); SetValue(nameof(ShinraMeterDefaultName), _shinraMeterDefaultName); }
+            get;set;
         }
-        private string _shinraMeterProcessName;
         public string ShinraMeterProcessName
         {
-            get { return _shinraMeterProcessName; }
-            set { _shinraMeterProcessName = value; RaisePropertyChanged(); SetValue(nameof(ShinraMeterProcessName), _shinraMeterProcessName); }
+            get;set;
         }
         private string _tccPath;
         public string TccPath
@@ -64,15 +56,12 @@ namespace ShinraManager.Settings
             get { return _tccStartWithTera; }
             set { _tccStartWithTera = value; RaisePropertyChanged(); SetValue(nameof(TccAutorunWithTera), _tccStartWithTera); }
         }
-        private string _tccDefaultName;
+    
         public string TccDefaultName
         {
-            get { return _tccDefaultName; }
-            set { _tccDefaultName = value; RaisePropertyChanged(); SetValue(nameof(TccDefaultName), _tccDefaultName); }
+            get; set;
         }
-
         public string TccProcessName { get; set; }
-
         public string ShinraManagerTaskName { get; set; }
 
         public ManagerSettings()
