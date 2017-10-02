@@ -14,7 +14,7 @@ namespace ShinraManager.Settings
     {
         private static ManagerSettings _instance;
         public static ManagerSettings Instance => _instance ?? (_instance = new ManagerSettings());
-
+        public string TeraProcessName = "Tera.exe";
         private bool _tccFlagInTm;
         public bool TccFlagInTm
         {

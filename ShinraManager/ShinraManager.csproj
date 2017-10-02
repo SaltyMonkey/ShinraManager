@@ -77,8 +77,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Autorun\WindowsTaskShedulerWrapper.cs" />
     <Compile Include="Windows\UiConverters\EnableToColorConverter.cs" />
     <Compile Include="Windows\UiConverters\EnableButtonIfValidPathConverter.cs" />
+    <Compile Include="Windows\UiConverters\MainButtonTextConverter.cs" />
     <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

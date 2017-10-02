@@ -1,20 +1,12 @@
-﻿using ShinraManager.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using Microsoft.Win32;
 using ShinraManager.Autorun;
 using ShinraManager.Settings;
+using ShinraManager.UI;
+using System;
+using System.Management;
+using System.Windows;
+using System.Windows.Input;
+
 namespace ShinraManager
 {
     /// <summary>
@@ -26,9 +18,17 @@ namespace ShinraManager
         {
             ManagerSettings.Instance.Refresh();
             InitializeComponent();
-         
+            ReadTaskSheduler();
+
         }
 
+        private static void ReadTaskSheduler()
+        {
+            ManagerSettings.Instance.ShinraFlagInTm = WindowsTaskShedulerWrapper.GetTask(ManagerSettings.Instance.ShinraManagerTaskName);
+            ManagerSettings.Instance.TccFlagInTm = WindowsTaskShedulerWrapper.GetTask(ManagerSettings.Instance.ShinraManagerTaskName);
+        }
+
+        private WMIWrapper wtch;
         private void Logo_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             ProcessWorkWrapper.JustStartProcess("https://github.com/SaltyMonkey/ShinraManager");
@@ -39,14 +39,26 @@ namespace ShinraManager
             Hide();
         }
 
-        private void ShinraChoosePathB_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void ShinraChoosePathB_Click(object sender, RoutedEventArgs e)
         {
-
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = $"ShinraMeter binary|{ManagerSettings.Instance.ShinraMeterDefaultName}";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                ManagerSettings.Instance.ShinraMeterPath = openFileDialog.FileName;
+            }
+        
         }
 
-        private void TccChoosePathB_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void TccChoosePathB_Click(object sender, RoutedEventArgs e)
         {
-
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = $"Tcc binary|{ManagerSettings.Instance.TccDefaultName}";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                ManagerSettings.Instance.TccPath = openFileDialog.FileName;
+            }
+          
         }
 
         private void ShinraClosePrB_Click(object sender, RoutedEventArgs e)
@@ -59,6 +71,105 @@ namespace ShinraManager
             ProcessWorkWrapper.KillProcess(ManagerSettings.Instance.TccDefaultName);
         }
 
-    
+        private void ShinraMainButton_Click(object sender, RoutedEventArgs e)
+        {
+            ManagerSettings.Instance.ShinraMeterAutorunWithTera = !ManagerSettings.Instance.ShinraMeterAutorunWithTera;
+            LogicInit();
+        }
+
+        private void LogicInit()
+        {
+            ReadTaskSheduler();
+            if (wtch == null)
+            {
+                wtch = new WMIWrapper(ManagerSettings.Instance.TeraProcessName);
+            }
+            else
+            {
+                wtch.RemoveWatchCreateProcessEvent();
+            }
+            if (((!string.IsNullOrWhiteSpace(ManagerSettings.Instance.ShinraMeterPath)) && (ManagerSettings.Instance.ShinraMeterAutorunWithTera)) ||
+                ((!string.IsNullOrWhiteSpace(ManagerSettings.Instance.TccPath)) && (ManagerSettings.Instance.TccAutorunWithTera)))
+            {
+                CleanUpTaskSheduler();
+                AddWorksIntoTaskSheduler();
+                try
+                {
+                    wtch.AddWatchCreateProcessEvent(processesStartBody);
+                }
+                catch (Exception ex)
+                {
+                    //log.Error(ex, "LogicInit -> AddWatchCreateProcessEvent");
+                }
+            }
+            else
+            {
+                CleanUpTaskSheduler();
+            }
+        }
+
+        private void processesStartBody(object sender, EventArrivedEventArgs e)
+        {
+            if (ManagerSettings.Instance.ShinraMeterAutorunWithTera)
+            {
+                if (!ProcessWorkWrapper.CheckProcessInMemory(ManagerSettings.Instance.ShinraMeterProcessName))
+                {
+                    try
+                    {
+                        ProcessWorkWrapper.StartProcess(ManagerSettings.Instance.ShinraMeterPath);
+                    }
+                    catch (Exception ex)
+                    {
+                        //log.Error(ex, "ShinraMeter process start exception");
+                    }
+                }
+            }
+            if (ManagerSettings.Instance.TccAutorunWithTera)
+            {
+                if (!ProcessWorkWrapper.CheckProcessInMemory(ManagerSettings.Instance.TccProcessName))
+                {
+                    try
+                    {
+                        ProcessWorkWrapper.StartProcess(ManagerSettings.Instance.TccPath);
+                    }
+                    catch (Exception ex)
+                    {
+                       // log.Error(ex, "TCC process start exception");
+                    }
+                }
+            }
+        }
+
+        private void CleanUpTaskSheduler()
+        {
+            try
+            {
+                if (WindowsTaskShedulerWrapper.GetTask(ManagerSettings.Instance.ShinraManagerTaskName))
+                {
+                    WindowsTaskShedulerWrapper.DeleteTaskByName(ManagerSettings.Instance.ShinraManagerTaskName);
+                }
+            }
+            catch (Exception ex)
+            {
+                //log.Error(ex, "CleanUpTaskSheduler");
+            }
+        }
+        private void AddWorksIntoTaskSheduler()
+        {
+            try
+            {
+                WindowsTaskShedulerWrapper.CreateTaskForUserLogonWithAdminRights(System.Reflection.Assembly.GetEntryAssembly().Location,
+                    ManagerSettings.Instance.ShinraManagerTaskName, ManagerSettings.Instance.ShinraManagerTaskName, "-minimized");
+            }
+            catch (Exception ex)
+            {
+                //log.Error(ex, "AddWorksIntoTaskSheduler");
+            }
+        }
+        private void TccMainButton_Click(object sender, RoutedEventArgs e)
+        {
+            ManagerSettings.Instance.TccAutorunWithTera = !ManagerSettings.Instance.TccAutorunWithTera;
+            LogicInit();
+        }
     }
 }
