@@ -79,7 +79,7 @@ namespace ShinraManager
 
         private void LogicInit()
         {
-            ReadTaskSheduler();
+          
             if (wtch == null)
             {
                 wtch = new WMIWrapper(ManagerSettings.Instance.TeraProcessName);
@@ -106,6 +106,7 @@ namespace ShinraManager
             {
                 CleanUpTaskSheduler();
             }
+            ReadTaskSheduler();
         }
 
         private void processesStartBody(object sender, EventArrivedEventArgs e)
