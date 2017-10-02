@@ -6,34 +6,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShinraManager"
         xmlns:ui="clr-namespace:ShinraManager.UI"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:converters ="clr-namespace:ShinraManager.Converters"
+        xmlns:sett ="clr-namespace:ShinraManager.Settings"
         mc:Ignorable="d"
         Title="MainWindow" Height="227.334" Width="343.667">
-    <ui:ClickThrouWindow.Resources>
-    
-    </ui:ClickThrouWindow.Resources>
+    <Window.Resources>
+        <BitmapImage x:Key="icon" UriSource="pack://application:,,,/Images/icon-notify.ico" />
+        <sett:ManagerSettings x:Key="ManagerSettings"/>
+        <converters:EnableButtonIfValidPathConverter x:Key="EnableButtonIfValidPathConverter" />
+        <converters:EnableToColorConverter x:Key="EnableToColorConverter" />
+    </Window.Resources>
     <Window.Background>
         <SolidColorBrush Color="Transparent" Opacity="0" />
     </Window.Background>
-    <Grid MinHeight="190" MinWidth="340" Margin="0" Height="196" VerticalAlignment="Top">
+    <Grid DataContext="{StaticResource ManagerSettings}" MinHeight="190" MinWidth="340" Margin="0" Height="196" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="26"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border Style="{StaticResource MainBorder}" x:Name="BackgroundColor" Grid.RowSpan="2" Opacity="0.5" Height="190" VerticalAlignment="Top"/>
+        <tb:TaskbarIcon Visibility="Visible" IconSource="{DynamicResource icon}" x:Name="TaskbarIcon"></tb:TaskbarIcon>
+        <Border Style="{StaticResource MainBorder}" x:Name="BackgroundColor" Grid.RowSpan="2" Opacity="0.6" Height="190" VerticalAlignment="Top"/>
         <Grid Grid.Row="0" Height="26" Margin="0,-0.4,0,0" >
             <Label Content="ShinraManager" HorizontalAlignment="Left" Foreground="White" Padding="10,2,2,2" Margin="36,0,0,0" Width="96" Height="26" VerticalAlignment="Bottom" VerticalContentAlignment="Center" />
-            <Canvas 
+            <Canvas x:Name="HideWindowCanvas" MouseLeftButtonDown="HideWindow_MouseLeftButtonDown"
                     Grid.Column="1"  HorizontalAlignment="Right" Style="{StaticResource CanvasButton }"
-                   Height="26" Width="26" >
+                   Height="26" Width="26" Margin="0,0,2,0" >
                 <Path Data="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" Fill="White" />
             </Canvas>
-            <Canvas 
+            <Canvas MouseLeftButtonDown="Logo_MouseLeftButtonDown"
                     Grid.Column="1"  HorizontalAlignment="Left" Style="{StaticResource CanvasButton }"
                    Height="26" Width="26" Margin="10,0,0,0" >
                 <Path Data="M2.81,14.12L5.64,11.29L8.17,10.79C11.39,6.41 17.55,4.22 19.78,4.22C19.78,6.45 17.59,12.61 13.21,15.83L12.71,18.36L9.88,21.19L9.17,17.66C7.76,17.66 7.76,17.66 7.05,16.95C6.34,16.24 6.34,16.24 6.34,14.83L2.81,14.12M5.64,16.95L7.05,18.36L4.39,21.03H2.97V19.61L5.64,16.95M4.22,15.54L5.46,15.71L3,18.16V16.74L4.22,15.54M8.29,18.54L8.46,19.78L7.26,21H5.84L8.29,18.54M13,9.5A1.5,1.5 0 0,0 11.5,11A1.5,1.5 0 0,0 13,12.5A1.5,1.5 0 0,0 14.5,11A1.5,1.5 0 0,0 13,9.5Z" Fill="White" />
             </Canvas>
         </Grid>
-        <TabControl Height="143.333" VerticalAlignment="Top" Margin="10,10,10,0" Grid.Row="1" Style="{DynamicResource TabControlStyle1}">
+        <TabControl Height="143.333" VerticalAlignment="Top" Margin="10,10,10,0" Grid.Row="1" Style="{DynamicResource DarkTabControl}">
             <TabControl.Resources>
                 <Style TargetType="{x:Type TabItem}">
                     <Setter Property="Margin" Value="0,-2,0,2"/>
@@ -80,23 +87,29 @@
             </TabControl.Resources>
             <TabItem Header="ShinraMeter"  Background="Transparent" Foreground="{StaticResource LightPrimaryText}">
                 <Grid Background="{StaticResource DarkBackgroundColor}" UseLayoutRounding="True" Margin="0,0,0,0">
-                    <TextBox x:Name="ShinraPathTb" HorizontalAlignment="Left" Height="20" Text="D:\!Git\ShinraManager_v1\ShinraManager\Autorun\WMIProcessWatcher.cs" VerticalAlignment="Top" Width="271" Margin="10,26,0,0" Style="{DynamicResource DarkTextBox}" IsReadOnly="True" IsReadOnlyCaretVisible="True"/>
+                    <TextBox x:Name="ShinraPathTb" HorizontalAlignment="Left" Height="20" Text="{Binding Instance.ShinraMeterPath}" VerticalAlignment="Top" Width="271" Margin="10,26,0,0" Style="{DynamicResource DarkTextBox}" IsReadOnly="True" IsReadOnlyCaretVisible="True"/>
                     <Label Content="ShinraMeter path:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Gray"/>
-                    <Label TextOptions.TextHintingMode="Fixed"  Content="Status:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Gray" Margin="0,89,0,0" FontSize="10"/>
-                    <Button Content="Button" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top" Width="209" Style="{DynamicResource DarkButton}"/>
-                    <Button x:Name="ShinraClosePrB" Content="Close process" HorizontalAlignment="Left" Margin="224,58,0,0" VerticalAlignment="Top" Width="82" Style="{DynamicResource DarkButton}"/>
-                    <Button x:Name="ShinraChoosePathB" TextOptions.TextRenderingMode="ClearType" Content="C" HorizontalAlignment="Left" Margin="286,26,0,0" VerticalAlignment="Top" Width="20" Style="{DynamicResource DarkButton}"/>
+                    <Label TextOptions.TextHintingMode="Fixed"  Content="Flag in config:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Gray" Margin="0,89,0,0" FontSize="10"/>
+                    <Button IsEnabled="{Binding ElementName=ShinraPathTb, Path=Text, Converter={StaticResource EnableButtonIfValidPathConverter}}" Content="Button" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top" Width="209" Style="{DynamicResource DarkButton}"/>
+                    <Button x:Name="ShinraClosePrB" Content="Close process" HorizontalAlignment="Left" Margin="224,58,0,0" VerticalAlignment="Top" Width="82" Style="{DynamicResource DarkButton}" Click="ShinraClosePrB_Click"/>
+                    <Button x:Name="ShinraChoosePathB" MouseLeftButtonDown="ShinraChoosePathB_MouseLeftButtonDown" TextOptions.TextRenderingMode="ClearType" Content="C" HorizontalAlignment="Left" Margin="286,26,0,0" VerticalAlignment="Top" Width="20" Style="{DynamicResource DarkButton}"/>
+                    <Label x:Name="ShinraFlagInConfig" Foreground="{Binding Instance.ShinraMeterAutorunWithTera, Converter={StaticResource EnableToColorConverter}}" Content="{Binding Instance.ShinraMeterAutorunWithTera}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="72,89,0,0" FontSize="10"/>
+                    <Label Content="Flag task manager:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Gray" Margin="116,89,0,0" FontSize="10"/>
+                    <Label x:Name="ShinraFlagInTm" Foreground="{Binding Instance.ShinraFlagInTm, Converter={StaticResource EnableToColorConverter}}" Content="{Binding Instance.ShinraFlagInTm}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="207,89,0,0" FontSize="10"/>
                 </Grid>
             </TabItem  >
             <TabItem Header="TCC"  Background="Transparent" Foreground="{StaticResource LightPrimaryText}">
                 <TabItem.Content>
                     <Grid  Background="{StaticResource DarkBackgroundColor}" UseLayoutRounding="True">
-                        <TextBox HorizontalAlignment="Left" Height="20" Text="D:\!Git\ShinraManager_v1\ShinraManager\Autorun\WMIProcessWatcher.cs" VerticalAlignment="Top" Width="271" Margin="10,26,0,0" Style="{DynamicResource DarkTextBox}" IsReadOnly="True" IsReadOnlyCaretVisible="True"/>
+                        <TextBox x:Name="TccPathTb" HorizontalAlignment="Left" Height="20" Text="{Binding TccPath}" VerticalAlignment="Top" Width="271" Margin="10,26,0,0" Style="{DynamicResource DarkTextBox}" IsReadOnly="True" IsReadOnlyCaretVisible="True"/>
                         <Label Content="Tcc path:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Gray"/>
-                        <Label Content="Status:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Gray" Margin="0,89,0,0" FontSize="10"/>
-                        <Button Content="Button" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top" Width="209" Style="{DynamicResource DarkButton}"/>
-                        <Button Content="Close process" HorizontalAlignment="Left" Margin="224,58,0,0" VerticalAlignment="Top" Width="82" Style="{DynamicResource DarkButton}"/>
-                        <Button Content="C" HorizontalAlignment="Left" Margin="286,26,0,0" VerticalAlignment="Top" Width="20" Style="{DynamicResource DarkButton}"/>
+                        <Label Content="Flag in config:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Gray" Margin="0,89,0,0" FontSize="10"/>
+                        <Button IsEnabled="{Binding ElementName=TccPathTb, Path=Text, Converter={StaticResource EnableButtonIfValidPathConverter}}" Content="Button" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top" Width="209" Style="{DynamicResource DarkButton}"/>
+                        <Button x:Name="TccClosePrB" Content="Close process" HorizontalAlignment="Left" Margin="224,58,0,0" VerticalAlignment="Top" Width="82" Style="{DynamicResource DarkButton}" Click="TccClosePrB_Click"/>
+                        <Button x:Name="TccChoosePathB" Content="C" MouseLeftButtonDown="TccChoosePathB_MouseLeftButtonDown" HorizontalAlignment="Left" Margin="286,26,0,0" VerticalAlignment="Top" Width="20" Style="{DynamicResource DarkButton}"/>
+                        <Label x:Name="FlagInConfig" Foreground="{Binding Instance.TccAutorunWithTera, Converter={StaticResource EnableToColorConverter}}" Content="{Binding Instance.TccAutorunWithTera}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="70,89,0,0" FontSize="10"/>
+                        <Label Content="Flag task manager:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Gray" Margin="116,89,0,0" FontSize="10"/>
+                        <Label x:Name="FlagInTm" Foreground="{Binding Instance.TccFlagInTm, Converter={StaticResource EnableToColorConverter}}" Content="{Binding Instance.TccFlagInTm}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="207,89,0,0" FontSize="10"/>
                     </Grid>
                 </TabItem.Content>
 

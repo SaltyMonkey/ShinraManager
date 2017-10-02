@@ -23,5 +23,20 @@ namespace ShinraManager.Autorun
             };
             Process.Start(prc);
         }
+
+        public static void JustStartProcess(string fullPath)
+        {
+           Process.Start(fullPath);
+        }
+        public static void KillProcess(string name)
+        {
+            var processesInMemory = Process.GetProcesses().
+                                   Where(pr => pr.ProcessName == name);
+
+            foreach (var process in processesInMemory)
+            {
+                process.Kill();
+            }
+        }
     }
 }

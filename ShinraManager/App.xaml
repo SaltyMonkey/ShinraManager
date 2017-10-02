@@ -1,10 +1,10 @@
 ﻿<Application x:Class="ShinraManager.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:ShinraManager"
-                 xmlns:sys="clr-namespace:System;assembly=mscorlib"
+         
              StartupUri="Windows/MainWindow.xaml">
     <Application.Resources>
+   
         <Style TargetType="Canvas" x:Key="CanvasButton">
             <Setter Property="Opacity" Value=".7"/>
             <Setter Property="Cursor" Value="Hand"/>
@@ -16,7 +16,7 @@
         </Style>
         <SolidColorBrush x:Key="TabItem.Selected.Background" Color="#FFFFFF"/>
         <SolidColorBrush x:Key="TabItem.Selected.Border" Color="#ACACAC"/>
-        <Style x:Key="TabControlStyle1" TargetType="{x:Type TabControl}">
+        <Style x:Key="DarkTabControl" TargetType="{x:Type TabControl}">
             <Setter Property="Padding" Value="2"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>

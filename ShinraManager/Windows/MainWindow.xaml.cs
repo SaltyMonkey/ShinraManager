@@ -13,7 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using ShinraManager.Autorun;
+using ShinraManager.Settings;
 namespace ShinraManager
 {
     /// <summary>
@@ -23,7 +24,41 @@ namespace ShinraManager
     {
         public MainWindow()
         {
+            ManagerSettings.Instance.Refresh();
             InitializeComponent();
+         
         }
+
+        private void Logo_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ProcessWorkWrapper.JustStartProcess("https://github.com/SaltyMonkey/ShinraManager");
+        }
+
+        private void HideWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Hide();
+        }
+
+        private void ShinraChoosePathB_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void TccChoosePathB_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void ShinraClosePrB_Click(object sender, RoutedEventArgs e)
+        {
+            ProcessWorkWrapper.KillProcess(ManagerSettings.Instance.ShinraMeterDefaultName);
+        }
+
+        private void TccClosePrB_Click(object sender, RoutedEventArgs e)
+        {
+            ProcessWorkWrapper.KillProcess(ManagerSettings.Instance.TccDefaultName);
+        }
+
+    
     }
 }
