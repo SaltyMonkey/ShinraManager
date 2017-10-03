@@ -186,5 +186,20 @@ namespace ShinraManager
             ManagerSettings.Instance.TccAutorunWithTera = !ManagerSettings.Instance.TccAutorunWithTera;
             LogicInit();
         }
+
+        private void ShinraMeterDiscord_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ProcessWorkWrapper.JustStartProcess("https://discord.gg/anUXQTp");
+        }
+
+        private void ShinraMeterGithub_LeftMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ProcessWorkWrapper.JustStartProcess("https://github.com/neowutran/ShinraMeter");
+        }
+
+        private void TccGithub_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ProcessWorkWrapper.JustStartProcess("https://github.com/Foglio1024/Tera-custom-cooldowns");
+        }
     }
 }
