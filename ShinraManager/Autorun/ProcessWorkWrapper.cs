@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShinraManager.Autorun
 {
@@ -17,9 +14,9 @@ namespace ShinraManager.Autorun
 
         public static void StartProcess(string fullPath)
         {
-            ProcessStartInfo prc = new ProcessStartInfo(fullPath)
+            var prc = new ProcessStartInfo(fullPath)
             {
-                WorkingDirectory = Path.GetDirectoryName(fullPath)
+                WorkingDirectory = Path.GetDirectoryName(fullPath) ?? throw new InvalidOperationException()
             };
             Process.Start(prc);
         }
@@ -34,9 +31,7 @@ namespace ShinraManager.Autorun
                                    Where(pr => pr.ProcessName == name);
 
             foreach (var process in processesInMemory)
-            {
                 process.Kill();
-            }
         }
     }
 }

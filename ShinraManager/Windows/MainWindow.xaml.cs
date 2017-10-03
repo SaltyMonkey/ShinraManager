@@ -12,7 +12,7 @@ namespace ShinraManager
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : ClickThrouWindow
+    public partial class MainWindow
     {
         public MainWindow()
         {
@@ -28,7 +28,7 @@ namespace ShinraManager
             ManagerSettings.Instance.TccFlagInTm = WindowsTaskShedulerWrapper.GetTask(ManagerSettings.Instance.ShinraManagerTaskName);
         }
 
-        private WMIWrapper wtch;
+        private WMIWrapper _wtch;
         private void Logo_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             GitHubComm();
@@ -102,13 +102,13 @@ namespace ShinraManager
         private void LogicInit()
         {
           
-            if (wtch == null)
+            if (_wtch == null)
             {
-                wtch = new WMIWrapper(ManagerSettings.Instance.TeraProcessName);
+                _wtch = new WMIWrapper(ManagerSettings.Instance.TeraProcessName);
             }
             else
             {
-                wtch.RemoveWatchCreateProcessEvent();
+                _wtch.RemoveWatchCreateProcessEvent();
             }
             if (((!string.IsNullOrWhiteSpace(ManagerSettings.Instance.ShinraMeterPath)) && (ManagerSettings.Instance.ShinraMeterAutorunWithTera)) ||
                 ((!string.IsNullOrWhiteSpace(ManagerSettings.Instance.TccPath)) && (ManagerSettings.Instance.TccAutorunWithTera)))
@@ -117,7 +117,7 @@ namespace ShinraManager
                 AddWorksIntoTaskSheduler();
                 try
                 {
-                    wtch.AddWatchCreateProcessEvent(processesStartBody);
+                    _wtch.AddWatchCreateProcessEvent(ProcessesStartBody);
                 }
                 catch (Exception ex)
                 {
@@ -131,39 +131,31 @@ namespace ShinraManager
             ReadTaskSheduler();
         }
 
-        private void processesStartBody(object sender, EventArrivedEventArgs e)
+        private void ProcessesStartBody(object sender, EventArrivedEventArgs e)
         {
-            if (ManagerSettings.Instance.ShinraMeterAutorunWithTera)
-            {
-                if (!ProcessWorkWrapper.CheckProcessInMemory(ManagerSettings.Instance.ShinraMeterProcessName))
+            if (ManagerSettings.Instance.ShinraMeterAutorunWithTera &&
+                !ProcessWorkWrapper.CheckProcessInMemory(ManagerSettings.Instance.ShinraMeterProcessName))
+                try
                 {
-                    try
-                    {
-                        ProcessWorkWrapper.StartProcess(ManagerSettings.Instance.ShinraMeterPath);
-                    }
-                    catch (Exception ex)
-                    {
-                        //log.Error(ex, "ShinraMeter process start exception");
-                    }
+                    ProcessWorkWrapper.StartProcess(ManagerSettings.Instance.ShinraMeterPath);
                 }
-            }
-            if (ManagerSettings.Instance.TccAutorunWithTera)
-            {
-                if (!ProcessWorkWrapper.CheckProcessInMemory(ManagerSettings.Instance.TccProcessName))
+                catch (Exception ex)
                 {
-                    try
-                    {
-                        ProcessWorkWrapper.StartProcess(ManagerSettings.Instance.TccPath);
-                    }
-                    catch (Exception ex)
-                    {
-                       // log.Error(ex, "TCC process start exception");
-                    }
+                    //log.Error(ex, "ShinraMeter process start exception");
                 }
-            }
+            if (ManagerSettings.Instance.TccAutorunWithTera &&
+                !ProcessWorkWrapper.CheckProcessInMemory(ManagerSettings.Instance.TccProcessName))
+                try
+                {
+                    ProcessWorkWrapper.StartProcess(ManagerSettings.Instance.TccPath);
+                }
+                catch (Exception ex)
+                {
+                    // log.Error(ex, "TCC process start exception");
+                }
         }
 
-        private void CleanUpTaskSheduler()
+        private static void CleanUpTaskSheduler()
         {
             try
             {
@@ -177,7 +169,7 @@ namespace ShinraManager
                 //log.Error(ex, "CleanUpTaskSheduler");
             }
         }
-        private void AddWorksIntoTaskSheduler()
+        private static void AddWorksIntoTaskSheduler()
         {
             try
             {

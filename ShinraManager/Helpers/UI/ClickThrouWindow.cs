@@ -151,14 +151,14 @@ namespace ShinraManager.UI
         public void ShowWindow()
         {
             Visible = true;
-            if (!Empty)
+            if (Empty) return;
+            _dispatcher.BeginInvoke(new Action(() =>
             {
-                //Opacity = 0;
-                _dispatcher.BeginInvoke(new Action(() => { BeginAnimation(OpacityProperty, OpacityAnimation(_opacity)); }));
+                BeginAnimation(OpacityProperty, OpacityAnimation(_opacity));
+            }));
 
-                Visibility = Visibility.Visible;
-            }
-
+            Visibility = Visibility.Visible;
+            //Opacity = 0;
         }
 
         protected override void OnSourceInitialized(EventArgs e)

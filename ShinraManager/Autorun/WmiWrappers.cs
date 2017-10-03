@@ -40,7 +40,7 @@ namespace ShinraManager.Autorun
                   $"SELECT * FROM Win32_ProcessStartTrace WHERE ProcessName = '{_processName}'");
 
             createWatcher = new ManagementEventWatcher(query);
-            createWatcher.EventArrived += new EventArrivedEventHandler(eventHandler);
+            createWatcher.EventArrived += eventHandler;
 
             try
             {
@@ -60,7 +60,7 @@ namespace ShinraManager.Autorun
                   $"SELECT * FROM Win32_ProcessStopTrace WHERE ProcessName = '{_processName}'");
 
             deleteWatcher = new ManagementEventWatcher(query);
-            deleteWatcher.EventArrived += new EventArrivedEventHandler(eventHandler);
+            deleteWatcher.EventArrived += eventHandler;
 
             try
             {

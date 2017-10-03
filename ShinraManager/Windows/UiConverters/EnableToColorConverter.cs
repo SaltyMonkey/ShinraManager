@@ -9,7 +9,8 @@ namespace ShinraManager.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((bool)value == true) return "Green"; else  return "Red";
+            if ((bool)value) return "Green";
+            return "Red";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

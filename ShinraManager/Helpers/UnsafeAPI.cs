@@ -40,8 +40,6 @@ namespace ShinraManager.Helpers
         [DllImport("user32.dll")]
         public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
 
-
-
         /// <summary>
         /// Activate window
         /// </summary>

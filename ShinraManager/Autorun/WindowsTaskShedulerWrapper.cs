@@ -10,7 +10,7 @@ namespace ShinraManager.Autorun
             try
             {
                 // Get the service on the local machine
-                using (TaskService ts = new TaskService())
+                using (var ts = new TaskService())
                 {
                     // Create a new task definition and assign properties
                     TaskDefinition td = ts.NewTask();
@@ -27,7 +27,7 @@ namespace ShinraManager.Autorun
                     });
 
                     // Add an action that will launch Notepad whenever the trigger fires
-                    td.Actions.Add(new ExecAction(fileFullPath, args, null));
+                    td.Actions.Add(new ExecAction(fileFullPath, args));
 
                     // Register the task in the root folder
                     ts.RootFolder.RegisterTaskDefinition(taskName, td);
@@ -44,7 +44,7 @@ namespace ShinraManager.Autorun
             // Get the service on the local machine
             try
             {
-                using (TaskService ts = new TaskService())
+                using (var ts = new TaskService())
                 {
                     ts.RootFolder.DeleteTask(taskName);
                 }
@@ -57,11 +57,10 @@ namespace ShinraManager.Autorun
 
         public static bool GetTask(string taskName)
         {
-            using (TaskService ts = new TaskService())
+            using (var ts = new TaskService())
             {
                 Task t = ts.GetTask(taskName);
-                if (t == null) return false;
-                else return true;
+                return t != null;
             }
         }
     }
