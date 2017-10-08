@@ -19,7 +19,12 @@ namespace ShinraManager
             ManagerSettings.Instance.Refresh();
             InitializeComponent();
             ReadTaskSheduler();
+            LogicInit();
+        }
 
+        public void ShowTaskbarIcon()
+        {
+            TaskbarIcon.Visibility = Visibility.Visible;
         }
 
         private static void ReadTaskSheduler()
@@ -42,10 +47,12 @@ namespace ShinraManager
         {
             ProcessWorkWrapper.JustStartProcess("https://github.com/SaltyMonkey/ShinraManager");
         }
+
         private void ClosingComm(object sender, RoutedEventArgs e)
         {
-            Close();
+            Application.Current.Shutdown();
         }
+
         private void ShowWindowComm(object sender, RoutedEventArgs e)
         {
             TaskbarIcon.Visibility = Visibility.Hidden;

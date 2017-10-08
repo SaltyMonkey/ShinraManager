@@ -23,6 +23,7 @@ namespace ShinraManager
                 if (e.Args[0] == "-minimized")
                 {
                     wnd.Visibility = Visibility.Hidden;
+                    wnd.ShowTaskbarIcon();
                 }
                 else
                 {
